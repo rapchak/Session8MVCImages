@@ -1,32 +1,31 @@
 ﻿using System;
-using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebApplication2.Data;
 using WebApplication2.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace WebApplication2.Controllers
 {
-    public class BlogsController : Controller
+    public class PostsController : Controller
     {
-        private readonly BlogDbContext _context;
+        private readonly InstuhDbContext _context;
 
-        public BlogsController(BlogDbContext context)
+        public PostsController(InstuhDbContext context)
         {
             _context = context;
         }
 
-        // GET: Blogs
+        // GET: Posts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Blogs.ToListAsync());
+            return View(await _context.Posts.ToListAsync());
         }
 
-        // GET: Blogs/Details/5
+        // GET: Posts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,41 +33,41 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blogs
+            var post = await _context.Posts
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (blog == null)
+            if (post == null)
             {
                 return NotFound();
             }
 
-            return View(blog);
+            return View(post);
         }
 
-        // GET: Blogs/Create
+        // GET: Posts/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Blogs/Create
+        // POST: Posts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Blog blog, IFormFile picture)
+        public async Task<IActionResult> Create([Bind("Id,UserID,ImageURL")] Post post)
         {
-            blog.PostedOn = DateTime.Now;
-
             if (ModelState.IsValid)
             {
-                _context.Add(blog);
+                post.PostedOn = DateTime.Now;
+                post.UserID = 1;
+                _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(blog);
+            return View(post);
         }
 
-        // GET: Blogs/Edit/5
+        // GET: Posts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,22 +75,22 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blogs.FindAsync(id);
-            if (blog == null)
+            var post = await _context.Posts.FindAsync(id);
+            if (post == null)
             {
                 return NotFound();
             }
-            return View(blog);
+            return View(post);
         }
 
-        // POST: Blogs/Edit/5
+        // POST: Posts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,WordCount,Text,PostedOn")] Blog blog)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserID,ImageURL,PostedOn")] Post post)
         {
-            if (id != blog.Id)
+            if (id != post.Id)
             {
                 return NotFound();
             }
@@ -100,12 +99,12 @@ namespace WebApplication2.Controllers
             {
                 try
                 {
-                    _context.Update(blog);
+                    _context.Update(post);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BlogExists(blog.Id))
+                    if (!PostExists(post.Id))
                     {
                         return NotFound();
                     }
@@ -116,10 +115,10 @@ namespace WebApplication2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(blog);
+            return View(post);
         }
 
-        // GET: Blogs/Delete/5
+        // GET: Posts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -127,30 +126,30 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blogs
+            var post = await _context.Posts
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (blog == null)
+            if (post == null)
             {
                 return NotFound();
             }
 
-            return View(blog);
+            return View(post);
         }
 
-        // POST: Blogs/Delete/5
+        // POST: Posts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var blog = await _context.Blogs.FindAsync(id);
-            _context.Blogs.Remove(blog);
+            var post = await _context.Posts.FindAsync(id);
+            _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BlogExists(int id)
+        private bool PostExists(int id)
         {
-            return _context.Blogs.Any(e => e.Id == id);
+            return _context.Posts.Any(e => e.Id == id);
         }
     }
 }

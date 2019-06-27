@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebApplication2.Data;
 
 namespace WebApplication2
 {
@@ -32,8 +33,15 @@ namespace WebApplication2
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<Models.BlogDbContext>(options =>
+<<<<<<< HEAD
+<<<<<<< HEAD
+            services.AddDbContext<InstagramContext>(options => options.UseSqlite("Data Source=database.db"));
+=======
+=======
+>>>>>>> c282c1aa95df496dcf6fdb8d7a0d042d9ce3b04b
+            services.AddDbContext<InstuhDbContext>(options =>
                 options.UseSqlite("Data Source=database.db"));
+>>>>>>> 35a1a1ebf6ac294e98a94c7d6cbde44fced5089d
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

@@ -5,6 +5,10 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\images\1934698.jpg" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -17,6 +21,11 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Data\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="images\1934698.jpg" />
+  </ItemGroup>
 </Project>
