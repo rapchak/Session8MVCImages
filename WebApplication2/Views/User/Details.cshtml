@@ -34,6 +34,9 @@
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.ImageURL)
+                        <div>
+                            <img src="@Html.DisplayFor(modelItem => item.ImageURL)" alt="first pangolin image" height="42" width="42">
+                        </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Description)
