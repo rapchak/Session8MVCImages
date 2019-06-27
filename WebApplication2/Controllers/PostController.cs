@@ -1,9 +1,11 @@
 using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
 using WebApplication2.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApplication2.Controllers
 {
@@ -51,13 +53,20 @@ namespace WebApplication2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Description,ImageURL,UserId")] Post post)
+        //will need to send CREATE the IFormFile
+        public async Task<IActionResult> Create([Bind("Id,Description,ImageURL,UserId")] Post post/*, IFormFile upload*/)
         {
             if (ModelState.IsValid)
             {
                 post.PostedOn = System.DateTime.Now;
                 _context.Add(post);
                 await _context.SaveChangesAsync();
+                //attempt at saving a file to /images directory
+                //var path = Path.Combine("~/images/", System.IO.Path.GetFileName(post.ImageURL)); // this is where we need to figure out path
+                ////post.imageurl = pre += post.imageurl
+                //upload.CopyToAsync(path); //This is how to save, need to figure out Path
+                ////product.ImageName = img;
+
                 System.Console.WriteLine("trying to create");
 
                 return RedirectToAction(nameof(Index));

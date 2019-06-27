@@ -18,9 +18,10 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageURL" class="control-label"></label>
+                <input type="file" name="ImageURL" accept="image/png, image/jpeg"/>
+                @*<label asp-for="ImageURL" class="control-label"></label>
                 <input asp-for="ImageURL" class="form-control" />
-                <span asp-validation-for="ImageURL" class="text-danger"></span>
+                <span asp-validation-for="ImageURL" class="text-danger"></span>*@
             </div>
             @*<div class="form-group">
                  <label asp-for="PostedOn" class="control-label"></label>
