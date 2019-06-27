@@ -28,4 +28,13 @@
   <ItemGroup>
     <None Remove="images\1934698.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\PostsController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Posts\Create.cshtml" />
+    <Content Remove="Views\Posts\Edit.cshtml" />
+    <Content Remove="Views\Users\Create.cshtml" />
+    <Content Remove="Views\Users\Delete.cshtml" />
+  </ItemGroup>
 </Project>
