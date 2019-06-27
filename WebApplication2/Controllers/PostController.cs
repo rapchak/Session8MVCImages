@@ -51,11 +51,12 @@ namespace WebApplication2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Description,ImageURL,PostedOn")] Post post)
+        public async Task<IActionResult> Create([Bind("Id,Description,ImageURL")] Post post)
         {
             if (ModelState.IsValid)
             {
                 post.UserId = 1;
+                post.PostedOn = System.DateTime.Now;
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
